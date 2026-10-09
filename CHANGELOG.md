@@ -1,5 +1,9 @@
 # 변경 이력
 
+## v0.2.0 — 2026-10-09
+- 접속 방식 변경: 사무실 IP · 초대 링크 대신 사람별 계정 로그인. 주소는 열려 있고 로그인 전에는 모두 막음.
+- `login.html`, `tools/new-user.html`(계정 줄 만들기), 로그아웃 링크 추가. Vercel 환경변수 `USERS` · `SESSION_SECRET` 필요(`ACCESS_KEY` 는 더 이상 안 씀).
+
 ## v0.1.1 — 2026-10-09
 - 접속 제한 `middleware.js` 추가: 사무실 IP 또는 초대 링크(Vercel 환경변수 `ACCESS_KEY`)만 열람.
 

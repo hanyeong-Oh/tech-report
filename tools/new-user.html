@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>계정 줄 만들기 · 기술 레포트</title>
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="top"><span class="brand">기술 레포트</span></header>
+<main class="wrap narrow">
+  <h1 class="pagetitle">계정 줄 만들기</h1>
+  <p class="muted small">아이디와 비밀번호를 넣으면 담당자에게 보낼 한 줄이 나옵니다. 비밀번호는 이 브라우저 안에서만 계산되고 어디로도 보내지 않습니다. 나온 줄로는 비밀번호를 알아낼 수 없습니다.</p>
+  <form id="f" class="form">
+    <label>아이디 (영문·숫자·.-_, 대소문자 구분 없음)<input id="id" pattern="[A-Za-z0-9._\-]{2,32}" required autocomplete="off"></label>
+    <label>비밀번호 (10자 이상)<input id="pw" type="password" minlength="10" required autocomplete="new-password"></label>
+    <label>비밀번호 확인<input id="pw2" type="password" minlength="10" required autocomplete="new-password"></label>
+    <button type="submit">만들기</button>
+  </form>
+  <p id="msg" class="err" hidden></p>
+  <div id="out" hidden>
+    <p class="small">이 줄을 담당자에게 보내 주세요(Vercel 환경변수 <code>USERS</code> 에 한 줄로 추가).</p>
+    <textarea id="line" readonly rows="3" class="line"></textarea>
+    <button type="button" id="copy">복사</button>
+  </div>
+</main>
+<script>
+// middleware.js 와 같은 방식: PBKDF2-SHA256, 100000회, 32바이트
+var ITER = 100000;
+function hex(b) { return Array.from(new Uint8Array(b), function (x) { return x.toString(16).padStart(2, '0'); }).join(''); }
+document.getElementById('f').addEventListener('submit', async function (e) {
+  e.preventDefault();
+  var id = document.getElementById('id').value.trim().toLowerCase(),
+      pw = document.getElementById('pw').value, pw2 = document.getElementById('pw2').value,
+      msg = document.getElementById('msg');
+  msg.hidden = true;
+  if (pw !== pw2) { msg.textContent = '비밀번호 확인이 다릅니다.'; msg.hidden = false; return; }
+  var enc = new TextEncoder(), salt = hex(crypto.getRandomValues(new Uint8Array(16)));
+  var key = await crypto.subtle.importKey('raw', enc.encode(pw), 'PBKDF2', false, ['deriveBits']);
+  var h = hex(await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: enc.encode(salt), iterations: ITER }, key, 256));
+  document.getElementById('line').value = id + ':' + salt + ':' + h;
+  document.getElementById('out').hidden = false;
+  document.getElementById('pw').value = document.getElementById('pw2').value = '';
+});
+document.getElementById('copy').addEventListener('click', function () {
+  var t = document.getElementById('line'); t.select();
+  (navigator.clipboard ? navigator.clipboard.writeText(t.value) : Promise.resolve(document.execCommand('copy')))
+    .then(function () { document.getElementById('copy').textContent = '복사됨'; });
+});
+</script>
+</body>
+</html>

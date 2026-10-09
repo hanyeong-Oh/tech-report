@@ -32,3 +32,14 @@ article figcaption{font-size:13px;color:var(--muted);margin-top:6px}
 article figure.noimg figcaption{padding:10px 14px;background:var(--quote);border-left:3px solid var(--line);border-radius:4px}
 article figure.noimg figcaption::before{content:"그림 · "}
 .byline + h2{border-top:0;margin-top:24px;padding-top:0}
+.narrow{max-width:420px}
+.pagetitle{font-size:24px;margin:8px 0 16px}
+.form{display:flex;flex-direction:column;gap:12px}
+.form label{display:flex;flex-direction:column;gap:4px;font-size:14px}
+.form input,.line{padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--fg);font-size:16px}
+.line{width:100%;font:13px/1.5 ui-monospace,monospace;word-break:break-all}
+button{padding:10px 14px;border:0;border-radius:8px;background:var(--accent);color:#fff;font-size:16px;font-weight:600;cursor:pointer}
+.err{color:#c0392b;font-size:14px}
+.small{font-size:13px}
+.top nav{display:flex;gap:14px;font-size:14px}
+.top nav a{text-decoration:none}
