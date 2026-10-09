@@ -1,0 +1,14 @@
+[
+  {
+    "id": "2026-09-ai-dc-ups-battery",
+    "title": "AI 데이터센터 배터리 99%가 놀고 있다",
+    "author": "BatteryMan",
+    "author_note": "Imperial College London 재료공학 · 이차전지 소재 및 시스템, 차세대 배터리",
+    "author_url": "https://heisenberg.kr/author/c243ad671f9ed91f7f5afebffe87c92606235782/",
+    "source": "하이젠버그",
+    "source_url": "",
+    "date": "2026-09-24",
+    "tags": ["배터리", "데이터센터", "UPS", "ESS"],
+    "summary": "UPS 배터리는 거의 쓰지 않아도 대기 중에 늙는다. 사이클 수보다 대기 온도·충전상태와 정전 순간의 출력이 수명 판단에 더 중요하다."
+  }
+]
