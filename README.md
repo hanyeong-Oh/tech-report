@@ -12,6 +12,7 @@
 | `reports/<id>.md` | 레포트 본문(Markdown) |
 | `reports/img/<id>/` | 레포트 그림 |
 | `assets/app.js` · `style.css` | 화면 코드 · 모양 |
+| `middleware.js` | 접속 제한(사무실 IP · 초대 링크) |
 | `assets/vendor/` | marked 12.0.2(Markdown 변환), DOMPurify 3.1.6(안전 처리) |
 
 ## 레포트 추가
@@ -25,6 +26,7 @@
 
 다른 곳에서 가져온 유료 글이 들어갈 수 있으므로 내부용으로만 씁니다.
 - 저장소는 비공개로 둡니다.
-- Vercel 배포에는 접근 보호(Deployment Protection 또는 비밀번호)를 켭니다.
+- `middleware.js` 가 접속을 막습니다(guro-db 와 같은 방식). 사무실 공인 IP 는 바로 열리고, 밖에서는 초대 링크 `…/?pass=열쇠` 로 한 번 들어오면 쿠키(180일)로 계속 열립니다.
+- 열쇠는 Vercel 환경변수 `ACCESS_KEY` 에만 둡니다. 코드·문서에 적지 않습니다. 열쇠를 바꾸면 이전 초대는 모두 무효입니다.
 - 검색엔진이 모으지 않도록 `robots.txt` 와 `noindex` 를 걸어 두었습니다.
 - 각 레포트에는 글쓴이와 원문을 밝힙니다. 다른 독자의 댓글은 옮기지 않습니다.
