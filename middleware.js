@@ -54,8 +54,13 @@ export default async function middleware(request) {
 
   if (!process.env.SESSION_SECRET || !process.env.USERS) {
     if (path.startsWith('/tools/new-user') || path === '/assets/style.css') return;   // 첫 계정은 만들 수 있게
-    return new Response('<!doctype html><meta charset="utf-8"><title>설정 필요</title><p style="font-family:system-ui;padding:24px">' +
-      'Vercel 환경변수 USERS · SESSION_SECRET 이 아직 없습니다. README 의 \'계정\' 장을 보세요.</p>',
+    return new Response('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
+      '<title>설정 필요</title><link rel="stylesheet" href="/assets/style.css"><main class="wrap narrow">' +
+      '<h1 class="pagetitle">처음 설정이 필요합니다</h1><ol>' +
+      '<li><a href="/tools/new-user">계정 줄 만들기</a>에서 내 계정 줄을 만듭니다.</li>' +
+      '<li>Vercel → 이 프로젝트 → Settings → Environment Variables 에 <code>USERS</code>(그 줄)와 ' +
+      '<code>SESSION_SECRET</code>(40자 이상 아무 문자열)을 넣습니다.</li>' +
+      '<li>Deployments 에서 맨 위 배포의 ⋯ → Redeploy 를 누릅니다.</li></ol></main>',
       { status: 503, headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' } });
   }
   const list = users();
