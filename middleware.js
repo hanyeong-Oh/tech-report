@@ -60,7 +60,8 @@ export default async function middleware(request) {
       '<li><a href="/tools/new-user">계정 줄 만들기</a>에서 내 계정 줄을 만듭니다.</li>' +
       '<li>Vercel → 이 프로젝트 → Settings → Environment Variables 에 <code>USERS</code>(그 줄)와 ' +
       '<code>SESSION_SECRET</code>(40자 이상 아무 문자열)을 넣습니다.</li>' +
-      '<li>Deployments 에서 맨 위 배포의 ⋯ → Redeploy 를 누릅니다.</li></ol></main>',
+      '<li>Deployments 에서 맨 위 배포의 ⋯ → Redeploy 를 누릅니다.</li></ol>' +
+      '<p class="err">지금 빠진 것: ' + ['USERS', 'SESSION_SECRET'].filter(k => !process.env[k]).join(', ') + '</p></main>',
       { status: 503, headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' } });
   }
   const list = users();
