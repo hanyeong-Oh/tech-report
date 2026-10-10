@@ -11,14 +11,13 @@
 <header class="top"><span class="brand">기술 레포트</span></header>
 <main class="wrap narrow">
   <h1 class="pagetitle">로그인</h1>
-  <p id="err" class="err" hidden>아이디나 비밀번호가 맞지 않습니다.</p>
+  <p id="err" class="err" hidden>비밀번호가 맞지 않습니다.</p>
   <form method="post" action="/login" class="form">
-    <label>아이디<input name="id" autocomplete="username" required autofocus></label>
-    <label>비밀번호<input name="pw" type="password" autocomplete="current-password" required></label>
+    <label>비밀번호<input name="pw" type="password" autocomplete="current-password" required autofocus></label>
     <input type="hidden" name="next" id="next">
     <button type="submit">들어가기</button>
   </form>
-  <p class="muted small">계정이 없으면 담당자에게 요청하세요.</p>
+  <p class="muted small">비밀번호는 담당자에게 물어보세요.</p>
 </main>
 <script>
 var p = new URLSearchParams(location.search);
